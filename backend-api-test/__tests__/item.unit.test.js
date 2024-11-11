@@ -28,7 +28,7 @@ describe("Item Management Unit Tests", () => {
 
     await request(apiUrl)
       .post("/auth/signup")
-      .send({ username: "itemUser88", password: "itemPassword" });
+      .send({ username: "itemUser333", password: "itemPassword" });
 
     mockRequest.send.mockResolvedValueOnce({
       statusCode: 201,
@@ -37,7 +37,7 @@ describe("Item Management Unit Tests", () => {
 
     const loginResponse = await request(apiUrl)
       .post("/auth/login")
-      .send({ username: "itemUser88", password: "itemPassword" });
+      .send({ username: "itemUser333", password: "itemPassword" });
     token = loginResponse.body.accessToken;
 
     expect(token).toBe("mockToken123");
@@ -46,7 +46,7 @@ describe("Item Management Unit Tests", () => {
   it("should create a new item", async () => {
     mockRequest.send.mockResolvedValue({
       statusCode: 201,
-      body: { id: "mockItemId1233", name: "TestItem44" },
+      body: { id: "mockItemId332211", name: "TestItem44" },
     });
 
     const response = await request(apiUrl)
@@ -62,7 +62,7 @@ describe("Item Management Unit Tests", () => {
   it("should fetch all items", async () => {
     mockRequest.set.mockResolvedValue({
       statusCode: 200,
-      body: [{ id: "mockItemId1233", name: "TestItem44" }],
+      body: [{ id: "mockItemId332211", name: "TestItem44" }],
     });
 
     const response = await request(apiUrl)
@@ -76,7 +76,7 @@ describe("Item Management Unit Tests", () => {
   it("should fetch a single item by ID", async () => {
     mockRequest.set.mockResolvedValue({
       statusCode: 200,
-      body: { id: "mockItemId1233", name: "TestItem44" },
+      body: { id: "mockItemId332211", name: "TestItem44" },
     });
 
     const response = await request(apiUrl)
@@ -90,16 +90,16 @@ describe("Item Management Unit Tests", () => {
   it("should update an item", async () => {
     mockRequest.send.mockResolvedValue({
       statusCode: 200,
-      body: { name: "UpdatedItemName66" },
+      body: { name: "UpdatedItemName6633" },
     });
 
     const response = await request(apiUrl)
       .patch(`/items/${itemId}`)
       .set("Authorization", `Bearer ${token}`)
-      .send({ name: "UpdatedItemName66", description: "Updated item description2" });
+      .send({ name: "UpdatedItemName6633", description: "Updated item description2" });
 
     expect(response.statusCode).toBe(200);
-    expect(response.body.name).toBe("UpdatedItemName66");
+    expect(response.body.name).toBe("UpdatedItemName6633");
   });
 
   it("should not allow unauthorized users to update an item", async () => {

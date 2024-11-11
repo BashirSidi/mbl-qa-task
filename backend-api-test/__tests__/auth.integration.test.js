@@ -8,16 +8,16 @@ describe("Authentication Integration Tests", () => {
   it("should sign up a user successfully", async () => {
     const response = await request(apiUrl)
       .post("/auth/signup")
-      .send({ username: "bash612", password: "bash123" });
+      .send({ username: "bash321", password: "bash123" });
     expect(201);
-    expect(response.body.username).toBe("bash612");
+    expect(response.body.username).toBe("bash321");
     expect(response.body.id).toBeDefined();
   });
 
   it("should log in with correct credentials", async () => {
     const response = await request(apiUrl)
       .post("/auth/login")
-      .send({ username: "bash612", password: "bash123" });
+      .send({ username: "bash321", password: "bash123" });
     expect(201);
     expect(response.body.accessToken).toBeDefined();
   });

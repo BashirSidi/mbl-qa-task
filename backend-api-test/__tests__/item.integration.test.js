@@ -8,11 +8,11 @@ describe("Item Management Integration Tests", () => {
   beforeAll(async () => {
     await request(apiUrl)
       .post("/auth/signup")
-      .send({ username: "itemUser4a", password: "itemPassword" });
+      .send({ username: "BashItem321", password: "itemPassword" });
 
     const loginResponse = await request(apiUrl)
       .post("/auth/login")
-      .send({ username: "itemUser4a", password: "itemPassword" });
+      .send({ username: "BashItem321", password: "itemPassword" });
     token = loginResponse.body.accessToken;
   });
 
@@ -20,9 +20,9 @@ describe("Item Management Integration Tests", () => {
     const response = await request(apiUrl)
       .post("/items")
       .set("Authorization", `Bearer ${token}`)
-      .send({ name: "TestItem6", description: "This is a test item describtion." });
+      .send({ name: "TestItem322", description: "This is a test item describtion." });
     expect(201);
-    expect(response.body.name).toBe("TestItem6");
+    expect(response.body.name).toBe("TestItem322");
     itemId = response.body.id;
   });
 
@@ -46,7 +46,7 @@ describe("Item Management Integration Tests", () => {
     const response = await request(apiUrl)
       .patch(`/items/${itemId}`)
       .set("Authorization", `Bearer ${token}`)
-      .send({ name: "UpdatedItemName", description: "Updated item description2" });
+      .send({ name: "UpdatedItemName321", description: "Updated item description." });
     expect(200);
     expect(response.body.name).toBe("UpdatedItemName");
   });

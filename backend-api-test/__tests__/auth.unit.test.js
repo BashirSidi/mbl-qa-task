@@ -22,16 +22,16 @@ describe("Authentication Unit Tests", () => {
       statusCode: 201,
       body: {
         id: 1,
-        username: "bash4a",
+        username: "bash3321",
       },
     });
 
     const response = await request(apiUrl)
       .post("/auth/signup")
-      .send({ username: "bash4a", password: "bash123" });
+      .send({ username: "bash3321", password: "bash123" });
 
     expect(response.statusCode).toBe(201);
-    expect(response.body.username).toBe("bash4a");
+    expect(response.body.username).toBe("bash3321");
     expect(response.body.id).toBeDefined();
   });
 
@@ -45,7 +45,7 @@ describe("Authentication Unit Tests", () => {
 
     const response = await request(apiUrl)
       .post("/auth/login")
-      .send({ username: "bash4a", password: "bash123" });
+      .send({ username: "bash3321", password: "bash123" });
 
     expect(response.statusCode).toBe(201);
     expect(response.body.accessToken).toBeDefined();
