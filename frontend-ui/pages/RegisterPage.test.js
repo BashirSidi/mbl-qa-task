@@ -3,7 +3,7 @@ import authReducer from "../store/slices/authSlice";
 import { render } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
-import LoginPage from "./LoginPage";
+import RegisterPage from "./RegisterPage";
 import { configureStore } from "@reduxjs/toolkit";
 
 const store = configureStore({
@@ -12,17 +12,17 @@ const store = configureStore({
   },
 });
 
-describe("LoginPage", () => {
-  it("Login page should have a field label Username", () => {
+describe("RegisterPage", () => {
+  it("Register page should have a field to enter your password", () => {
     const { getByTestId } = render(
       <Provider store={store}>
         <BrowserRouter>
-          <LoginPage />
+          <RegisterPage />
         </BrowserRouter>
       </Provider>,
     );
 
-    const loginPage = getByTestId("username").textContent;
-    expect(loginPage).toEqual("Username");
+    const registerPage = getByTestId("password").textContent;
+    expect(registerPage).toEqual("Password");
   });
 });

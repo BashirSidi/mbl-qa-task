@@ -33,7 +33,6 @@ export const createItem = createAsyncThunk(
   "items/createItem",
   async (itemData, { rejectWithValue }) => {
     try {
-      console.log("itemData", itemData);
       const response = await apiService.request({
         method: "POST",
         url: "/items",
@@ -50,8 +49,6 @@ export const updateItem = createAsyncThunk(
   "items/updateItem",
   async ({ id, data }, { rejectWithValue }) => {
     try {
-      console.log("data,", data);
-      console.log("id,", id);
       const response = await apiService.request({
         method: "PATCH",
         url: `/items/${id}`,
