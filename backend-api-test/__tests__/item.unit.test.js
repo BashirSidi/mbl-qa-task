@@ -1,4 +1,5 @@
 const request = require("supertest");
+const { v4: uuidv4 } = require("uuid");
 const apiUrl = "https://qa-test-9di7.onrender.com";
 
 jest.mock("supertest");
@@ -7,8 +8,12 @@ describe("Item Management Unit Tests", () => {
   let mockRequest;
   let token;
   let itemId;
+  let uniqueUsername;
+  let uniqueTestItem;
 
   beforeEach(() => {
+    uniqueUsername = `bash-${uuidv4()}`;
+    uniqueTestItem = `item-${uuidv4()}`;
     mockRequest = {
       post: jest.fn().mockReturnThis(),
       get: jest.fn().mockReturnThis(),
@@ -28,7 +33,7 @@ describe("Item Management Unit Tests", () => {
 
     await request(apiUrl)
       .post("/auth/signup")
-      .send({ username: "itemUser333", password: "itemPassword" });
+      .send({ username: uniqueUsername, password: "itemPassword" });
 
     mockRequest.send.mockResolvedValueOnce({
       statusCode: 201,
@@ -37,7 +42,7 @@ describe("Item Management Unit Tests", () => {
 
     const loginResponse = await request(apiUrl)
       .post("/auth/login")
-      .send({ username: "itemUser333", password: "itemPassword" });
+      .send({ username: uniqueUsername, password: "itemPassword" });
     token = loginResponse.body.accessToken;
 
     expect(token).toBe("mockToken123");
@@ -46,23 +51,23 @@ describe("Item Management Unit Tests", () => {
   it("should create a new item", async () => {
     mockRequest.send.mockResolvedValue({
       statusCode: 201,
-      body: { id: "mockItemId332211", name: "TestItem44" },
+      body: { id: "mockItemId332211", name: uniqueTestItem },
     });
 
     const response = await request(apiUrl)
       .post("/items")
       .set("Authorization", `Bearer ${token}`)
-      .send({ name: "TestItem44", description: "This is a test item description..." });
+      .send({ name: uniqueTestItem, description: "This is a test item description..." });
 
     expect(response.statusCode).toBe(201);
-    expect(response.body.name).toBe("TestItem44");
+    expect(response.body.name).toBe(uniqueTestItem);
     itemId = response.body.id;
   });
 
   it("should fetch all items", async () => {
     mockRequest.set.mockResolvedValue({
       statusCode: 200,
-      body: [{ id: "mockItemId332211", name: "TestItem44" }],
+      body: [{ id: "mockItemId332211", name: uniqueTestItem }],
     });
 
     const response = await request(apiUrl)
@@ -76,7 +81,7 @@ describe("Item Management Unit Tests", () => {
   it("should fetch a single item by ID", async () => {
     mockRequest.set.mockResolvedValue({
       statusCode: 200,
-      body: { id: "mockItemId332211", name: "TestItem44" },
+      body: { id: "mockItemId332211", name: uniqueTestItem },
     });
 
     const response = await request(apiUrl)

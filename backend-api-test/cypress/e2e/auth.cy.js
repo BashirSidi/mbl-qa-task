@@ -1,19 +1,22 @@
+const { v4: uuidv4 } = require("uuid");
+
 describe("Authentication E2E Tests", () => {
   const apiUrl = "https://qa-test-9di7.onrender.com";
   let token = "";
+  let uniqueUsername = `bash-${uuidv4()}`;
 
   it("should sign up a user successfully", () => {
     cy.request({
       method: "POST",
       url: `${apiUrl}/auth/signup`,
       body: {
-        username: "bashir22",
+        username: uniqueUsername,
         password: "bash123",
       },
       timeout: 60000,
     }).then((response) => {
       expect(response.status).to.eq(201);
-      expect(response.body.username).to.eq("bashir22");
+      expect(response.body.username).to.eq(uniqueUsername);
       expect(response.body.id).to.exist;
     });
   });
@@ -23,7 +26,7 @@ describe("Authentication E2E Tests", () => {
       method: "POST",
       url: `${apiUrl}/auth/login`,
       body: {
-        username: "bashir22",
+        username: uniqueUsername,
         password: "bash123",
       },
       timeout: 60000,

@@ -1,12 +1,15 @@
 const request = require("supertest");
+const { v4: uuidv4 } = require("uuid");
 const apiUrl = "https://qa-test-9di7.onrender.com";
 
 jest.mock("supertest");
 
 describe("Authentication Unit Tests", () => {
   let mockRequest;
+  let uniqueUsername;
 
   beforeEach(() => {
+    uniqueUsername = `bash-${uuidv4()}`;
     mockRequest = {
       post: jest.fn().mockReturnThis(),
       get: jest.fn().mockReturnThis(),
@@ -22,16 +25,16 @@ describe("Authentication Unit Tests", () => {
       statusCode: 201,
       body: {
         id: 1,
-        username: "bash3321",
+        username: uniqueUsername,
       },
     });
 
     const response = await request(apiUrl)
       .post("/auth/signup")
-      .send({ username: "bash3321", password: "bash123" });
+      .send({ username: uniqueUsername, password: "bash123" });
 
     expect(response.statusCode).toBe(201);
-    expect(response.body.username).toBe("bash3321");
+    expect(response.body.username).toBe(uniqueUsername);
     expect(response.body.id).toBeDefined();
   });
 
@@ -45,7 +48,7 @@ describe("Authentication Unit Tests", () => {
 
     const response = await request(apiUrl)
       .post("/auth/login")
-      .send({ username: "bash3321", password: "bash123" });
+      .send({ username: uniqueUsername, password: "bash123" });
 
     expect(response.statusCode).toBe(201);
     expect(response.body.accessToken).toBeDefined();

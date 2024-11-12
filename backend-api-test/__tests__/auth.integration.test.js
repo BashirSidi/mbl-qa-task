@@ -1,23 +1,29 @@
 const request = require("supertest");
+const { v4: uuidv4 } = require("uuid");
 const apiUrl = "https://qa-test-9di7.onrender.com";
 
 describe("Authentication Integration Tests", () => {
   let token;
+  let uniqueUsername;
 
-  jest.setTimeout(10000);
+  beforeAll(() => {
+    uniqueUsername = `bash-${uuidv4()}`;
+  });
+
+  jest.setTimeout(20000);
   it("should sign up a user successfully", async () => {
     const response = await request(apiUrl)
       .post("/auth/signup")
-      .send({ username: "bash321", password: "bash123" });
+      .send({ username: uniqueUsername, password: "bash123" });
     expect(201);
-    expect(response.body.username).toBe("bash321");
+    expect(response.body.username).toBe(uniqueUsername);
     expect(response.body.id).toBeDefined();
   });
 
   it("should log in with correct credentials", async () => {
     const response = await request(apiUrl)
       .post("/auth/login")
-      .send({ username: "bash321", password: "bash123" });
+      .send({ username: uniqueUsername, password: "bash123" });
     expect(201);
     expect(response.body.accessToken).toBeDefined();
   });

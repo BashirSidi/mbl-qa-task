@@ -1,14 +1,18 @@
+const { v4: uuidv4 } = require("uuid");
+
 describe("Item Management E2E Tests", () => {
   const apiUrl = "https://qa-test-9di7.onrender.com";
   let token = "";
   let itemId = "";
+  let uniqueUsername = `bash-${uuidv4()}`;
+  let uniqueItem = `item-${uuidv4()}`;
 
   before(() => {
     cy.request({
       method: "POST",
       url: `${apiUrl}/auth/signup`,
       body: {
-        username: "itemUser77",
+        username: uniqueUsername,
         password: "itemPassword",
       },
     });
@@ -17,7 +21,7 @@ describe("Item Management E2E Tests", () => {
       method: "POST",
       url: `${apiUrl}/auth/login`,
       body: {
-        username: "itemUser77",
+        username: uniqueUsername,
         password: "itemPassword",
       },
     }).then((response) => {
@@ -33,12 +37,12 @@ describe("Item Management E2E Tests", () => {
         Authorization: `Bearer ${token}`,
       },
       body: {
-        name: "TestItem55",
+        name: uniqueItem,
         description: "This is a test item description.",
       },
     }).then((response) => {
       expect(response.status).to.eq(201);
-      expect(response.body.name).to.eq("TestItem55");
+      expect(response.body.name).to.eq(uniqueItem);
       itemId = response.body.id;
     });
   });
