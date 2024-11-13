@@ -1,5 +1,11 @@
 # MBL HighTech QA Assignment
 
+### Prerequisites
+
+- **Node.js** (version 14.x or higher)
+- **npm** (version 6.x or higher)
+- **Chrome** for running Cypress tests
+
 ## Overview
 
 This repo includes both Backend API tests and Frontend UI tests directories which I named **`backend-api-test`** and **`frontend-ui`** respectively. Note: You need to install all dependencies inside each directory (application) you want run the test: you can simply do that by running **`npm install`** or **`yarn add`** (i.e if you're using yarn).
@@ -74,8 +80,3 @@ Frontend (React):
 - **React Router**: for routing
 - **TailwindCSS**: for Styling
 
-### Prerequisites
-
-- **Node.js** (version 14.x or higher)
-- **npm** (version 6.x or higher)
-- **Chrome** for running Cypress tests
