@@ -36,3 +36,20 @@ describe("EditItemPage", () => {
     expect(editItemTitle).toEqual("Edit Item");
   });
 });
+
+describe("EditItemPage", () => {
+  it("should render and display Update button for editing item", () => {
+    const { getByTestId } = render(
+      <Provider store={store}>
+        <MemoryRouter initialEntries={["/items/3"]}>
+          <Routes>
+            <Route path="/items/:id" element={<EditItemPage />} />
+          </Routes>
+        </MemoryRouter>
+      </Provider>,
+    );
+
+    const editItemButton = getByTestId("editItemButton");
+    expect(editItemButton.tagName).toBe("BUTTON");
+  });
+});

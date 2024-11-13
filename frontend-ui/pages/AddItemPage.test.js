@@ -24,9 +24,9 @@ describe("AddItemPage", () => {
   it("should render and display Create Item on the AddItemPage", () => {
     const { getByTestId } = render(
       <Provider store={store}>
-        <MemoryRouter initialEntries={["/items/3"]}>
+        <MemoryRouter initialEntries={["/items/create"]}>
           <Routes>
-            <Route path="/items/:id" element={<AddItemPage />} />
+            <Route path="/items/create" element={<AddItemPage />} />
           </Routes>
         </MemoryRouter>
       </Provider>,
@@ -34,5 +34,22 @@ describe("AddItemPage", () => {
 
     const createItemTitle = getByTestId("createItem").textContent;
     expect(createItemTitle).toEqual("Create Item");
+  });
+});
+
+describe("AddItemPage", () => {
+  it("should render and display Create Item Button on the AddItemPage", () => {
+    const { getByTestId } = render(
+      <Provider store={store}>
+        <MemoryRouter initialEntries={["/items/create"]}>
+          <Routes>
+            <Route path="/items/create" element={<AddItemPage />} />
+          </Routes>
+        </MemoryRouter>
+      </Provider>,
+    );
+
+    const createItemButton = getByTestId("createItemButton");
+    expect(createItemButton.tagName).toBe("BUTTON");
   });
 });
