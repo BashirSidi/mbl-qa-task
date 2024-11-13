@@ -7,8 +7,8 @@ import PrivateRoute from '../components/PrivateRoute';
 import LoginPage from '../pages/LoginPage';
 import RegisterPage from '../pages/RegisterPage';
 import ItemsPage from '../pages/ItemsPage';
-// import AddItemPage from '../pages/AddItemPage';
-// import EditItemPage from '../pages/EditItemPage';
+import AddItemPage from '../pages/AddItemPage';
+import EditItemPage from '../pages/EditItemPage';
 
 function App() {
   const router = createBrowserRouter(
