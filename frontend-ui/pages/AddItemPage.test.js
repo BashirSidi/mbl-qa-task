@@ -21,7 +21,7 @@ const store = configureStore({
 });
 
 describe("AddItemPage", () => {
-  it("should render and display the correct item details for editing", () => {
+  it("should render and display Create Item on the AddItemPage", () => {
     const { getByTestId } = render(
       <Provider store={store}>
         <MemoryRouter initialEntries={["/items/3"]}>
